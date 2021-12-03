@@ -5,11 +5,10 @@
 int main(int argc, char **argv) {
 
 	char line[MAX_LINE];
-	int prev_value, value, num_values, incr;
+	int prev_value, value, n_lines, incr;
 	FILE *fd;
 
-	prev_value = value = num_values = incr = 0;
-
+	prev_value = value = n_lines = incr = 0;
 
 	if(argc !=2) {
 		perror("Error en el número de argumentos.\n");
@@ -22,18 +21,18 @@ int main(int argc, char **argv) {
 		exit(1);
 	}
 
-	while((fgets(line, MAX_LINE, fd))){
+	while(fgets(line, MAX_LINE, fd)){
 		value = atoi(line);
 		//The fist case is not consider neither a increment or a decrement
-		if(num_values && (prev_value < value)){
+		if(n_lines && (prev_value < value)){
 			++incr;
 		}
-		++num_values;
+		++n_lines;
 		prev_value = value;
 	}
 
 	fclose(fd);
-	printf("Lineas: %i\n",num_values);
+	printf("Lineas: %i\n",n_lines);
 	printf("Incrementos: %i\n",incr);
 
 	return 0;
